@@ -2,6 +2,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+      XMl 文件的命名空间(Namespaces) 很重要。
+      主要作用有两个：
+        ①利用更长的全限定名来将不同的语句隔离开来。
+        ②也可以实现如下所示的接口绑定。
+      全限定名可以映射到在命名空间中同名的映射器类
+      xml 中的每个 sql 都对应同名映射类中的对应名称，参数和返回类型的方法。
+ -->
 <mapper namespace="xuaiai.connection.StudentMapper">
 
+  <insert id="insertData" parameterType="xuaiai.DO.Student">
+    insert into Student(s_id, s_name, s_age, s_sex) value (#{sId}, #{sName}, #{sAge}, #{sSex});
+  </insert>
+
+  <select id="selectStudentInfo" resultType="xuaiai.DO.Student">
+    select s_id as sId,
+           s_name as sName,
+           s_age as sAge,
+           s_sex as sSex
+    from Student
+  </select>
 </mapper>

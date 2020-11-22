@@ -1,9 +1,7 @@
 package xuaiai.connection;
 
 import java.io.IOException;
-import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.SqlSessionFactory;
-import com.alibaba.fastjson.JSON;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
