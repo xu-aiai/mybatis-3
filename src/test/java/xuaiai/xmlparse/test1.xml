@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<struts>
+  <constant name="struts.i18n.encoding" value="gb2312">324</constant>
+  <package name="stuts2" extends="struts-default">
+    <action name="login" class="ActionUnit.Person">
+      <result name="s">1_1.jsp</result>
+      <result name="t">1_2.jsp</result>
+      <result name="m">1_3.jsp</result>
+      <result name="fail">1_4.jsp</result>
+    </action>
+    <action name="modifyPassword" class="student.ModifyPassword">
+      <result name="success">2_1.jsp</result>
+      <result name="fail">2_2.jsp</result>
+    </action>
+    <action name="studentquery" class="student.QueryScore">
+      <result name="success">3_1.jsp</result>
+      <result name="false">3_2.jsp</result>
+    </action>
+<!--    <action name="infoquery" class="student.QueryInfo">-->
+<!--      <result name="success">4_1.jsp</result>-->
+<!--      <result name="false">4_2.jsp</result>-->
+<!--    </action>-->
+  </package>
+</struts>

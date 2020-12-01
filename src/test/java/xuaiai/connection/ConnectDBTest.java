@@ -14,7 +14,7 @@ public class ConnectDBTest {
 
   private static String resource = "xuaiai/connection/mybatis-config.xml";
 
-  private static String driverName = "com.mysql.jdbc.Driver";
+  private static String driverName      = "com.mysql.jdbc.Driver";
   private static String url = "jdbc:mysql://112.124.13.202:3306/test";
   private static String user = "root";
   private static String password = "950416.tj";

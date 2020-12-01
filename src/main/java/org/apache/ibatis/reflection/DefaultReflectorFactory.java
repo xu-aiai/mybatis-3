@@ -38,7 +38,11 @@ public class DefaultReflectorFactory implements ReflectorFactory {
   @Override
   public Reflector findForClass(Class<?> type) {
     if (classCacheEnabled) {
-      // synchronized (type) removed see issue #461
+      /**
+       * synchronized (type) removed see issue #461
+       * 如果 type 为空，则将 Reflector:: new 获取到的值设置为 key 为 type 对应的 value 值。
+       * computeIfAbsent 方法需要学习一下
+       */
       return reflectorMap.computeIfAbsent(type, Reflector::new);
     } else {
       return new Reflector(type);

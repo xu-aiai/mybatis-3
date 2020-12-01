@@ -31,7 +31,48 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 }
 ```
 
-## 2. Mybatis 配置文件解释
+## 2. Mybatis 配置文件解析
+
+MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息。 配置文档的顶层结构如下：
+
+configuration（配置）
+
+- [properties（属性）](https://mybatis.org/mybatis-3/zh/configuration.html#properties)
+- [settings（设置）](https://mybatis.org/mybatis-3/zh/configuration.html#settings)
+- [typeAliases（类型别名）](https://mybatis.org/mybatis-3/zh/configuration.html#typeAliases)
+- [typeHandlers（类型处理器）](https://mybatis.org/mybatis-3/zh/configuration.html#typeHandlers)
+- [objectFactory（对象工厂）](https://mybatis.org/mybatis-3/zh/configuration.html#objectFactory)
+- [plugins（插件）](https://mybatis.org/mybatis-3/zh/configuration.html#plugins)
+- environments（环境配置）
+  - environment（环境变量）
+    - transactionManager（事务管理器）
+    - dataSource（数据源）
+- [databaseIdProvider（数据库厂商标识）](https://mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider)
+- [mappers（映射器）](https://mybatis.org/mybatis-3/zh/configuration.html#mappers)
+
+<font color="FF0000">mybatis 的配置文件需要按照上述结构和顺序进行编写，顺序不对，mybatis 解析不了</font>
+
+**引言**
+
+Node 接口是整个文档对象模型 (Document Object Model-DOM)的 数据类型，表示文档树形结构中的每个节点。接口中定义了一系列处理节点的方法。
+
+XML 文档中的每个成分都是一个节点。整个文档是一个文档节点；每个 XML 元素是一个元素节点；包含在 XML 元素中的文本是文本节点；每一个 XML 属性是一个属性节点；注释是注释节点。
+
+Element 接口是 HTML 或者 XML 文档中元素的数据类型。每个元素有很多的属性，因此 Element 接口继承了 Node 接口。一般 Node 接口被用于检索一个元素的所有属性集合。Element 接口中的方法用于通过名字检索属性对象或者属性值。在 XML 中，属性值可能又是一个实体引用。即属性值为一颗文档子树。
+
+XML DOM 教程：https://www.runoob.com/dom/dom-tutorial.html
+
+XPath 接口，XML 的路径，用来确定 XML 文档中某部分的位置。XPath 基于 XML 的树状结构，有在数据结构树中寻找节点的能力。
+
+https://www.runoob.com/xpath/xpath-tutorial.html
+
+**XNode 类**
+
+在 Mybatis 中，定义了 XNode 类用于解析XPath XML 文件，XNode 类 是 JDK 中定义的 Node 类的增强类。
+
+**XPathParser**
+
+这个类是解析 mybatis XML 文件的关键类，后续在补充其作用。
 
 **properties**
 
@@ -171,6 +212,6 @@ try (SqlSession session = sqlSessionFactory.openSession()) {
 
 
 
-
+什么是上下文：https://www.zhihu.com/question/26387327
 
 Date 和 TimeStamp 的区别**

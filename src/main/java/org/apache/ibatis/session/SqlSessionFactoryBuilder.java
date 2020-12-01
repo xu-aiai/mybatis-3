@@ -74,7 +74,22 @@ public class SqlSessionFactoryBuilder {
 
   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
+      /**
+       * @param inputStream: 读取 mybatis-config.xml 产生的字节输入流
+       * @param environment: 暂时不知道干嘛用的
+       * @param properties: 暂时不知道干嘛用的
+       * @return: org.apache.ibatis.session.SqlSessionFactory 用于创建 SqlSession
+       * @author: 啦儿啦
+       * @date:
+       * @description:
+       * ① 初始化 xmlConfigBuilder 对象，用于解析 XML 文件，在初始化该对象的时候加载了 Mybatis 中预置的
+       *  类型别名(typeAliasRegistry), 类型处理器(typeHandlerRegistry)
+       * ② MyBatis 在设置预处理语句（PreparedStatement）中的参数或从结果集中取出一个值时，
+       *  都会用类型处理器将获取到的值以合适的方式转换成 Java 类型。
+       * ③ 如果在代码里给 properties 传值，则会在实例化 XMLConfigBuilder 时，将传入的值设置到 configuration 对象中的 variables 属性。
+       */
       XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+      // 解析 XML 过程的入口
       return build(parser.parse());
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error building SqlSession.", e);

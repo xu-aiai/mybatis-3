@@ -207,6 +207,15 @@ public class XPathParser {
     return xnodes;
   }
 
+  /**
+   * @param expression: 根节点的元素名称
+   * @return: org.apache.ibatis.parsing.XNode
+   * @author: 啦儿啦
+   * @date:
+   * @description:
+   * 创建根节点元素的 XNode 实例
+   * XNode 实例的创建是对 Node 实例的再次封装，故在创建 XNode 实例之前都会先创建一个 Node 实例。
+   */
   public XNode evalNode(String expression) {
     return evalNode(document, expression);
   }
@@ -219,6 +228,10 @@ public class XPathParser {
     return new XNode(this, node, variables);
   }
 
+  /**
+   * 使用 XPath 解析传入表达式，并返回一个元素对象，在 XML 中每个元素对象即为一个 Node。
+   * 我的理解如果表达式为“/configuration”,即获取一个表示 configuration 元素的 Node 实例
+   */
   private Object evaluate(String expression, Object root, QName returnType) {
     try {
       return xpath.evaluate(expression, root, returnType);

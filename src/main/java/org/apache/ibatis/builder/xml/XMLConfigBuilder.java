@@ -92,17 +92,26 @@ public class XMLConfigBuilder extends BaseBuilder {
   }
 
   public Configuration parse() {
+    // 标识是否已经解析过 xml
     if (parsed) {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
     }
     parsed = true;
+    // 先获取 XML 文件中根元素 configuration 的 XNode 实例，再根据 根元素 依次解析其子元素。
     parseConfiguration(parser.evalNode("/configuration"));
     return configuration;
   }
 
   private void parseConfiguration(XNode root) {
     try {
-      // issue #117 read properties first
+      /**
+       * issue #117 read properties first
+       * 解析 configuration 的子元素 properties
+       * 如果一个属性在不只一个地方进行了配置，那么，MyBatis 将按照下面的顺序来加载：
+       * ① 首先读取在 properties 元素体内指定的属性。
+       * ② 然后根据 properties 元素中的 resource 属性读取类路径下属性文件，或根据 url 属性指定的路径读取属性文件，并覆盖之前读取过的同名属性。
+       * ③ 最后读取作为方法参数传递的属性，并覆盖之前读取过的同名属性。
+       */
       propertiesElement(root.evalNode("properties"));
       Properties settings = settingsAsProperties(root.evalNode("settings"));
       loadCustomVfs(settings);
@@ -221,7 +230,9 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   private void propertiesElement(XNode context) throws Exception {
     if (context != null) {
+      // Properties 继承于 Hashtable。表示一个属性集。获取 <properties> 元素的子元素所有属性。
       Properties defaults = context.getChildrenAsProperties();
+      // 解析 properties 元素的两个属性(resource，url)的值，注意：在编写配置文件时如果给 properties 元素的属性赋值，只能给其中一个属性赋值。
       String resource = context.getStringAttribute("resource");
       String url = context.getStringAttribute("url");
       if (resource != null && url != null) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<School>
+  <Student id="1"> 学生 1 第 1 个节点
+    <Name>学生 1 第 2 个节点</Name>学生 1 第 3 个节点
+    <Num>学生 1 第 4 个节点</Num>学生 1 第 5 个节点
+    <Classes>学生 1 第 6 个节点</Classes>学生 1 第 7 个节点
+    <Address>学生 1 第 8 个节点</Address>学生 1 第 9 个节点
+    <Tel>学生 1 第 10 个节点</Tel>学生 1 第 11 个节点
+  </Student>
+  <Student id="2">
+    <Name>沈1</Name>
+    <Num>1006010033</Num>
+    <Classes>信管1</Classes>
+    <Address>浙江杭州4</Address>
+    <Tel>234567</Tel>
+  </Student>
+  <Student id="3">
+    <Name>沈2</Name>
+    <Num>1006010044</Num>
+    <Classes>生工2</Classes>
+    <Address>浙江杭州1</Address>
+    <Tel>345678</Tel>
+  </Student>
+  <Student id="4">
+    <Name>沈3</Name>
+    <Num>1006010055</Num>
+    <Classes>电子2</Classes>
+    <Address>浙江杭州2</Address>
+    <Tel>456789</Tel>
+  </Student>
+</School>

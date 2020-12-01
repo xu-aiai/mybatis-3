@@ -3,6 +3,7 @@ package xuaiai.connection;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Properties;
 import javax.sql.DataSource;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.io.Resources;
@@ -56,8 +57,12 @@ public class ConnectDB {
    * @return: SqlSessionFactory 实例
    */
   public SqlSessionFactory getSqlSessionFactory(String resource) throws IOException {
+    Properties properties = new Properties();
+    properties.setProperty("111Name","111Value");
+    properties.setProperty("222Name","222Value");
+    properties.setProperty("333Name","333Value");
     InputStream inputStream = Resources.getResourceAsStream(resource);
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, properties);
     return sqlSessionFactory;
   }
 

@@ -29,6 +29,8 @@ import org.w3c.dom.NodeList;
 
 /**
  * @author Clinton Begin
+ * XNode 是 Node 类的增强类
+ * TODO：XNode 并没有通过继承 Node 的方式来进行功能扩展。应该是使用了组合的设计模式思想，后面在确定。
  */
 public class XNode {
 
@@ -37,6 +39,9 @@ public class XNode {
   private final String body;
   private final Properties attributes;
   private final Properties variables;
+  /**
+   * XPath 解析器
+   */
   private final XPathParser xpathParser;
 
   public XNode(XPathParser xpathParser, Node node, Properties variables) {
@@ -320,6 +325,9 @@ public class XNode {
     return children;
   }
 
+  /**
+   * 获取元素的子元素的属性集
+   */
   public Properties getChildrenAsProperties() {
     Properties properties = new Properties();
     for (XNode child : getChildren()) {
