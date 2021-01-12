@@ -97,7 +97,10 @@ public class XMLConfigBuilder extends BaseBuilder {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
     }
     parsed = true;
-    // 先获取 XML 文件中根元素 configuration 的 XNode 实例，再根据 根元素 依次解析其子元素。
+    /**
+     * 解析 mybatis 配置文件（mybatis config xml）中的 configuration
+     * 先获取 XML 文件中根元素 configuration 的 XNode 实例，再根据 根元素 依次解析其子元素。
+     */
     parseConfiguration(parser.evalNode("/configuration"));
     return configuration;
   }
@@ -106,16 +109,28 @@ public class XMLConfigBuilder extends BaseBuilder {
     try {
       /**
        * issue #117 read properties first
-       * 解析 configuration 的子元素 properties
+       * 解析 mybatis 配置文件（mybatis config xml）中的 properties，这些属性可以在外部进行配置，并可以进行动态替换
+       * properties 的配置方式，详情请看链接：https://mybatis.org/mybatis-3/zh/configuration.html#properties
        * 如果一个属性在不只一个地方进行了配置，那么，MyBatis 将按照下面的顺序来加载：
-       * ① 首先读取在 properties 元素体内指定的属性。
-       * ② 然后根据 properties 元素中的 resource 属性读取类路径下属性文件，或根据 url 属性指定的路径读取属性文件，并覆盖之前读取过的同名属性。
-       * ③ 最后读取作为方法参数传递的属性，并覆盖之前读取过的同名属性。
+       *  ① 首先读取在 properties 元素体内指定的属性。
+       *  ② 然后根据 properties 元素中的 resource 属性读取类路径下属性文件，或根据 url 属性指定的路径读取属性文件，并覆盖之前读取过的同名属性。
+       *  ③ 最后读取作为方法参数传递的属性，并覆盖之前读取过的同名属性。
        */
       propertiesElement(root.evalNode("properties"));
+      /**
+       * 解析 mybatis 配置文件（mybatis config xml）中的 settings，它们会改变 MyBatis 的运行时行为。
+       * settings 中各项设置的含义、默认值，以及相关配置方式详情请看链接：https://mybatis.org/mybatis-3/zh/configuration.html#settings
+       */
       Properties settings = settingsAsProperties(root.evalNode("settings"));
+      // 如果配置了<setting name="vfsImpl"> 则获取 MyBatis 指定的 VFS 的实现方式。VFS 是啥，不清楚。
       loadCustomVfs(settings);
+      // 如果配置了<setting name="logImpl"> 则获取 MyBatis 指定使用哪种日志，未指定时将自动查找。暂时不知道干啥用的
       loadCustomLogImpl(settings);
+      /**
+       * 解析 mybatis 配置文件（mybatis config xml）中的 typeAliases(类型别名)
+       * typeAliases 相关配置方式，详情请看链接：https://mybatis.org/mybatis-3/zh/configuration.html#typeAliases
+       * @Alias 注解不是在这点解析的
+       */
       typeAliasesElement(root.evalNode("typeAliases"));
       pluginElement(root.evalNode("plugins"));
       objectFactoryElement(root.evalNode("objectFactory"));
@@ -126,6 +141,10 @@ public class XMLConfigBuilder extends BaseBuilder {
       environmentsElement(root.evalNode("environments"));
       databaseIdProviderElement(root.evalNode("databaseIdProvider"));
       typeHandlerElement(root.evalNode("typeHandlers"));
+      /**
+       * 解析 mybatis 配置文件（mybatis config xml）中的 mappers(映射器)
+       * mapeprs 的相关配置方式，详情请看链接：https://mybatis.org/mybatis-3/zh/configuration.html#mappers
+       */
       mapperElement(root.evalNode("mappers"));
     } catch (Exception e) {
       throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
@@ -385,6 +404,7 @@ public class XMLConfigBuilder extends BaseBuilder {
             ErrorContext.instance().resource(resource);
             InputStream inputStream = Resources.getResourceAsStream(resource);
             XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
+            // 解析 mybatis 映射文件（mybatis-mapper xml）
             mapperParser.parse();
           } else if (resource == null && url != null && mapperClass == null) {
             ErrorContext.instance().resource(url);

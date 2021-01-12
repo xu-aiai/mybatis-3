@@ -113,6 +113,10 @@ public class XMLMapperBuilder extends BaseBuilder {
         throw new BuilderException("Mapper's namespace cannot be empty");
       }
       builderAssistant.setCurrentNamespace(namespace);
+      /**
+       * 解析 映射器 xml 文件中的几个顶级元素
+       * 各顶级元素的含义，详情请见链接：https://mybatis.org/mybatis-3/zh/sqlmap-xml.html
+       */
       cacheRefElement(context.evalNode("cache-ref"));
       cacheElement(context.evalNode("cache"));
       parameterMapElement(context.evalNodes("/mapper/parameterMap"));

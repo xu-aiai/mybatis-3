@@ -2,8 +2,10 @@ package xuaiai.DO;
 
 import java.util.Date;
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 @Data
+@Alias("student")
 public class Student {
 
   /**

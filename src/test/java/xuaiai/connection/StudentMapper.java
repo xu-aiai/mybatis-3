@@ -12,7 +12,13 @@ import xuaiai.DO.Student;
  */
 public interface StudentMapper {
 
+  /**
+   * 插入一条学生信息
+   */
   Integer insertData(Student student);
 
+   /**
+    * 查询所有的学生信息
+    */
   List<Student> selectStudentInfo();
 }
